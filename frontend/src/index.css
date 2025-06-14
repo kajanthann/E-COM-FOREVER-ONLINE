@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+a.active hr{
+  display: block;
+}
+
+/* @keyframes border-wave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-border-wave {
+  background-size: 300% 300%;
+  animation: border-wave 4s ease infinite;
+  filter: blur(2px);
+} */
