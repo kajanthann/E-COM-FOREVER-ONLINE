@@ -34,7 +34,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="md:w-64 w-16 border-r h-[550px] text-base border-gray-300 pt-4 flex flex-col transition-all duration-300">
+    <div className="md:w-40 w-16 border-r h-[550px] text-base border-gray-300 pt-4 flex flex-col transition-all duration-300">
       {sidebarLinks.map((item, index) => (
         <NavLink
           to={item.to}

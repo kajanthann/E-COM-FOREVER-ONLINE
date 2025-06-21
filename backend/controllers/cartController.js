@@ -70,15 +70,24 @@ const updateCart = async (req, res) => {
       });
     }
 
-    let cartData = await userData.cartData;
+    let cartData = userData.cartData || {};
 
-    // Update quantity
     if (!cartData[itemId]) {
       cartData[itemId] = {};
     }
 
+    cartData[itemId][size] = quantity;
+
+    // Remove if quantity is 0
+    if (quantity === 0) {
+      delete cartData[itemId][size];
+      if (Object.keys(cartData[itemId]).length === 0) {
+        delete cartData[itemId];
+      }
+    }
 
     await userModel.findByIdAndUpdate(userId, { cartData });
+
     res.json({ 
       success: true, 
       message: "Cart updated",
@@ -122,43 +131,6 @@ const getCart = async (req, res) => {
   }
 };
 
-// delete cart
-const deleteFromCart = async (req, res) => {
-  try {
-    const { userId,itemId, size } = req.body;
-
-    if (!itemId) {
-      return res.status(400).json({ success: false, message: "Product ID required" });
-    }
-
-    const userData = await userModel.findById(userId);
-    if (!userData) {
-      return res.status(404).json({ success: false, message: "User not found" });
-    }
-
-    let cartData = userData.cartData || {};
-
-    if (size && cartData[itemId]) {
-      // Remove only specific size
-      delete cartData[itemId][size];
-
-      // If no sizes left, remove the whole product
-      if (Object.keys(cartData[itemId]).length === 0) {
-        delete cartData[itemId];
-      }
-    } else {
-      // Remove entire product if size not specified
-      delete cartData[itemId];
-    }
-
-    await userModel.findByIdAndUpdate(userId, { cartData });
-
-    res.json({ success: true, message: "Item removed from cart", cartData });
-  } catch (error) {
-    console.log('Delete from cart error:', error);
-    res.status(500).json({ success: false, message: "Failed to delete from cart" });
-  }
-};
 
 
-export { addToCart, updateCart, getCart, deleteFromCart };
+export { addToCart, updateCart, getCart };

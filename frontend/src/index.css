@@ -15,3 +15,19 @@ a.active hr{
   animation: border-wave 4s ease infinite;
   filter: blur(2px);
 } */
+
+.reviews-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.reviews-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+.reviews-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1; /* Tailwind slate-300 */
+  border-radius: 10px;
+}
+.reviews-scrollbar:hover::-webkit-scrollbar-thumb {
+  background: #94a3b8; /* Tailwind slate-400 */
+}
+
