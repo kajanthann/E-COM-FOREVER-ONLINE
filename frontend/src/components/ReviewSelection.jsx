@@ -66,7 +66,10 @@ const ReviewSection = ({ productId, productData }) => {
   const formatDate = (isoDate) => {
     const date = new Date(isoDate);
     if (isNaN(date)) return "N/A";
-    return formatDistanceToNow(date, { addSuffix: true });
+    return formatDistanceToNow(date, { addSuffix: true }).replace(
+      /^about /,
+      ""
+    );
   };
 
   return (
@@ -85,6 +88,9 @@ const ReviewSection = ({ productId, productData }) => {
         <span className="text-sm text-gray-600">
           {totalReviews} {totalReviews === 1 ? "review" : "reviews"}
         </span>
+        <span className="text-green-600 text-sm ml-2">
+          ✓ All from verified purchases
+        </span>
       </div>
 
       {/* Reviews List */}
@@ -96,30 +102,28 @@ const ReviewSection = ({ productId, productData }) => {
         ) : (
           reviewData.map((rev, i) => (
             <div
-  key={rev._id || i}
-  className="border border-gray-50 rounded-md p-4 shadow hover:shadow-md transition-shadow duration-200"
->
-  <div className="flex items-center justify-between mb-3">
-    <div className="flex items-center gap-3">
-      <div className="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-base font-semibold text-pink-600 select-none">
-        {rev.userId?.name?.[0]?.toUpperCase() || "U"}
-      </div>
-      <span className="font-semibold text-gray-900 text-base select-text">
-        {rev.userId?.name || "User"}<Stars rating={rev.rating} size={18} />
-      </span>
-    </div>
-    <span className="text-xs text-gray-500 italic select-text">
-      {formatDate(rev.createdAt)}
-    </span>
-  </div>
+              key={rev._id || i}
+              className="border border-gray-50 rounded-md p-4 shadow hover:shadow-md transition-shadow duration-200"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-base font-semibold text-pink-600 select-none">
+                    {rev.userId?.name?.[0]?.toUpperCase() || "U"}
+                  </div>
+                  <span className="font-semibold text-gray-900 text-base select-text">
+                    {rev.userId?.name || "User"}
+                    <Stars rating={rev.rating} size={18} />
+                  </span>
+                </div>
+                <span className="text-xs text-gray-500 italic select-text">
+                  {formatDate(rev.createdAt)}
+                </span>
+              </div>
 
-  
-
-  <p className="mt-3 text-gray-800 text-sm leading-relaxed whitespace-pre-line">
-    {rev.comment}
-  </p>
-</div>
-
+              <p className="mt-3 text-gray-800 text-sm leading-relaxed whitespace-pre-line">
+                {rev.comment}
+              </p>
+            </div>
           ))
         )}
       </div>

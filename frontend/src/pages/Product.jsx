@@ -8,7 +8,8 @@ import axios from "axios";
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency, addToCart, backendUrl, loading } = useContext(ShopContext);
+  const { products, currency, addToCart, backendUrl, loading } =
+    useContext(ShopContext);
 
   const [productData, setProductData] = useState(null);
   const [image, setImage] = useState("");
@@ -59,8 +60,9 @@ const Product = () => {
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
       <div className="flex flex-col sm:flex-row gap-6">
         {/* Product Images */}
-        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-2/3">
-          <div className="flex sm:flex-col gap-3 sm:gap-2 overflow-x-auto sm:overflow-y-auto sm:max-h-[500px] sm:min-w-[100px]">
+        <div className="flex flex-col-reverse sm:flex-row-reverse gap-4 w-full sm:w-2/3">
+          {/* Thumbnail List */}
+          <div className="flex flex-row sm:flex-col gap-3 sm:gap-2 overflow-x-auto sm:overflow-y-auto sm:max-h-[500px] sm:min-w-[100px]">
             {productData.image.map((item, index) => (
               <img
                 key={index}
@@ -73,6 +75,7 @@ const Product = () => {
               />
             ))}
           </div>
+          {/* Main Image */}
           <div className="flex-1 flex items-center justify-center">
             <img
               className="w-full max-h-[600px] object-contain"
@@ -87,7 +90,9 @@ const Product = () => {
           <h1 className="text-2xl font-medium mt-3">{productData.name}</h1>
           <div className="flex items-center gap-2 mt-2">
             <Stars rating={averageRating} />
-            <span className="text-lg font-bold">{averageRating.toFixed(1)}</span>
+            <span className="text-lg font-bold">
+              {averageRating.toFixed(1)}
+            </span>
             <p className="text-xs text-gray-600">({totalReviews})</p>
           </div>
           <p className="mt-5 text-3xl font-medium text-gray-700 mb-2">
@@ -128,7 +133,6 @@ const Product = () => {
 
       {/* Description + Reviews Section */}
       <div className="mt-20">
-       
         {/* Submit Review Section */}
         <ReviewSection
           productId={productData._id}
