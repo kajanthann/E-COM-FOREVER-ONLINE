@@ -13,6 +13,7 @@ import Login from './pages/Login'
 import PlaceOrder from './pages/PlaceOrder'
 import Orders from './pages/Orders'
 import PaymentVerify from './pages/PaymentVerify'
+import Liked from './pages/Liked'
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path='/collection' element={<Collection />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/liked' element={<Liked />} />
         <Route path='/product/:productId' element={<Product />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/place-order' element={<PlaceOrder />} />

@@ -17,6 +17,7 @@ const ShopContextProvider = (props) => {
   const [products, setproducts] = useState([]);
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(true);
+const [reviewSummaries, setReviewSummaries] = useState({});
 
   const addToCart = async (itemId, size) => {
     if (!size) {
@@ -138,6 +139,36 @@ const ShopContextProvider = (props) => {
     }
   };
 
+  const getReviewSummary = async (productId) => {
+  if (reviewSummaries[productId]) {
+    return reviewSummaries[productId];
+  }
+
+  try {
+    const res = await axios.get(`${backendUrl}/api/review/${productId}`);
+    if (res.data.success) {
+      const summary = {
+        averageRating: parseFloat(res.data.averageRating),
+        totalReviews: res.data.totalReviews,
+        reviews: res.data.reviews,
+      };
+
+      setReviewSummaries((prev) => ({ ...prev, [productId]: summary }));
+
+      return summary;
+    }
+  } catch (err) {
+    console.error("Error fetching review summary:", err);
+  }
+
+  return {
+    averageRating: 0,
+    totalReviews: 0,
+    reviews: [],
+  };
+};
+
+
   const calculateAverageRating = (reviews) => {
     if (!Array.isArray(reviews) || reviews.length === 0) return 0;
     const total = reviews.reduce((sum, r) => sum + r.rating, 0);
@@ -181,6 +212,7 @@ const ShopContextProvider = (props) => {
     setLoading,
     calculateAverageRating,
     countTotalReviews,
+    getReviewSummary,
   };
   return (
     <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>

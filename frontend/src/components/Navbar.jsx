@@ -58,8 +58,8 @@ const Navbar = () => {
         </Link>
 
         <ul className="hidden sm:flex gap-5 text-gray-700">
-          {['/', '/collection', '/about', '/contact'].map((path, i) => {
-            const names = ['Home', 'Collection', 'About', 'Contact'];
+          {['/', '/collection', '/about', '/contact','/liked'].map((path, i) => {
+            const names = ['Home', 'Collection', 'About', 'Contact','Liked 🩷'];
             return (
               <NavLink key={path} to={path} className="flex flex-col items-center gap-1">
                 <p>{names[i]}</p>
@@ -109,8 +109,8 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       <ul className="md:hidden mb-4 justify-between flex text-gray-700">
-        {['/', '/collection', '/about', '/contact'].map((path, i) => {
-          const names = ['Home', 'Collection', 'About', 'Contact'];
+        {['/', '/collection', '/about', '/contact','/liked'].map((path, i) => {
+          const names = ['Home', 'Collection', 'About', 'Contact','Liked'];
           return (
             <NavLink key={path} to={path} className="flex flex-col items-center gap-1">
               <p>{names[i]}</p>
